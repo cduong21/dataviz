@@ -25,10 +25,17 @@ function App() {
 
   
     return (
-      <div style={{width:"600px", textAlign:"center"}}>
-      <h1>COVID-19 Test Tracker</h1>
-      <Chart data={stateData} />
-      </div>
+      <Router>
+        <div className="App">
+          <NavBar/>
+
+          <Switch>
+          <Route path='/data' component={Visualization} />
+          <Route path='/resources' component={Resources} />
+          </Switch> 
+
+        </div>
+      </Router>
     );
 }
 
