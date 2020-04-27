@@ -28,10 +28,14 @@ function Visualization(){
         <div className="py-5">
             <h2 className="text-center"> Data Visualization (ChartJS) </h2>
             
-            <div className="d-flex justify-content-center py-5">
+            <div className="text-center py-3">
+              <a href="https://covidtracking.com/api" class="btn btn-info" role="button">The COVID Tracking Project API</a>
+            </div>
+
+            <div className="d-flex justify-content-center py-3">
               <img src= "https://www.evaluate.com/sites/default/files/styles/focal_point_848x350/public/AdobeStock_317106453_0.jpeg?h=3b09102f" ></img>
             </div>
-            <h1 className="text-center">COVID-19 US Test Tracker</h1>
+            <h1 className="text-center">COVID-19 US Testing Results</h1>
             <div className="py-5 md-5">
               <Chart data={stateData} width={300} height={350}/>
             </div>

@@ -95,7 +95,7 @@ const CaVsNy = () => {
     }, []);
     return (
       <div className="App">
-        <h1 className="text-center">California vs New York Deaths</h1>
+        <h1 className="text-center">California and New York Deaths</h1>
         <div>
           <Line
             data={chartData}

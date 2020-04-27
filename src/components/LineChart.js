@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Line } from "react-chartjs-2";
 import axios from "axios";
 
-/* Using new method that makes more sense: creating arrays, using React Hooks, and passing in arrays*/
+/* Using new method that makes more sense: creating arrays, using React Hooks, and passing in arrays */
 const LineChart = () => {
     const [chartData, setChartData] = useState({});
     
