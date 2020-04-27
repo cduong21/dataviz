@@ -25,8 +25,9 @@ function App() {
 
   
     return (
-      <div>
-        <Chart chartData={stateData}/>
+      <div style={{width:"600px", textAlign:"center"}}>
+      <h1>COVID-19 Test Tracker</h1>
+      <Chart data={stateData} />
       </div>
     );
 }
