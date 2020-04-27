@@ -1,6 +1,7 @@
-import React, { Component } from 'react'; 
+import React from 'react'; 
 import { Bar } from 'react-chartjs-2'; 
 
+// passing in data and de-structuring and building new object
 const Chart = ({data}) => {
     const {positive, negative, pending} = data
 
@@ -10,7 +11,7 @@ const Chart = ({data}) => {
         pending,
     }
 
-    //console.log(dataStructure)
+    // console.log(dataStructure)
 
     // create a config object for the data
     const chartDataConfig = {
@@ -32,7 +33,7 @@ const Chart = ({data}) => {
         <div>
             <Bar 
             data={chartDataConfig} 
-            // can not resize?? 
+            // getting rid of the legend 
             options={{
                 legend: {
                     display: false
@@ -45,9 +46,6 @@ const Chart = ({data}) => {
                     }
                 },
             }}
-            width={5}
-            height={5}
-            options={{ maintainAspectRatio: true}}
             />
         </div>
     )

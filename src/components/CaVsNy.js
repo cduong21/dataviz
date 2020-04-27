@@ -2,56 +2,82 @@ import React, { useState, useEffect } from "react";
 import { Line } from "react-chartjs-2";
 import axios from "axios";
 
-/* Using new method that makes more sense: creating arrays, using React Hooks, and passing in arrays*/
-const LineChart = () => {
+// Visualization for both CA and NY
+const CaVsNy = () => {
     const [chartData, setChartData] = useState({});
     
     const chart = () => {
-      // initalizing empty arrays to be filled 
-      let filteredCA = [];  
+      let filteredCA, filteredNy= [];  
       let covidDates = [];
-      let covidDeaths = [];
+      let covidCaDeath = [];
+      let covidNyDeath = [];
 
-      // fetching API 
       axios
         .get("https://covidtracking.com/api/v1/states/daily.json")
         .then(res => {
-            // filter API of all state's data 
             const state = res.data 
             filteredCA = state.filter(a => a.state===("CA"))
+            
 
-            //pushing desired data into respective arrays 
             for (const dataObj of filteredCA){
                 covidDates.push(parseInt(dataObj.date));
-                covidDeaths.push(dataObj.positive);
+                covidCaDeath.push(dataObj.death);
             }
 
-            // key and value pair matching to sort them from oldest to newest 
+            const ny = res.data
+            filteredNy = ny.filter(b => b.state===("NY"))
+
+            for (const dataObj of filteredNy) {
+                covidNyDeath.push(dataObj.death)
+            }
+
+            // CA key and value pair matching to support sorting the dates in ascending order 
             var i; 
             var currentKey;
             var currentVal; 
             var masterList = {};
             for (i = 0; i < covidDates.length; i++){
                 currentKey = covidDates[i]
-                currentVal = covidDeaths[i]
+                currentVal = covidCaDeath[i]
                 masterList[currentKey] = currentVal; 
             }
             console.log(masterList)
 
-          //console.log(state);
-          //console.log(filteredCA)
+            //for NY 
+            var j; 
+            var currentKey2;
+            var currentVal2; 
+            var masterList2 = {};
+            for (j = 0; j < covidDates.length; j++){
+                currentKey2 = covidDates[j]
+                currentVal2 = covidNyDeath[j]
+                masterList2[currentKey2] = currentVal2; 
+            }
+            console.log(masterList2)
+
+          //console.log(filteredNy)
 
           setChartData({
             labels: Object.keys(masterList),
             datasets: [
               {
-                label: "",
+                label: "Cali",
                 data: Object.values(masterList),
-                backgroundColor: ["rgba(75, 192, 192, 0.6)"],
+                pointBackgroundColor: ["rgb(0, 153, 255)"], 
+                pointBorderColor: ["rgb(0, 153, 255)"],
+                pointHoverBackgroundColor: ["rgb(0, 153, 255)"],
+                backgroundColor: ["rgb(0, 153, 255)"],
                 borderWidth: 4,
-                fill: false,
-                borderColor: "rgb(51, 102, 255)", 
-                
+                fill: true, 
+                legend: {
+                    display: false,
+                }
+              },
+              {
+                label: "Nyc",
+                data: Object.values(masterList2),
+                backgroundColor: ["rgb(255, 80, 80)"],
+                borderWidth: 4,
                 legend: {
                     display: false,
                 }
@@ -59,35 +85,23 @@ const LineChart = () => {
             ]
           });
         })
-        // catching errors 
         .catch(err => {
           console.log(err);
         });
-      //console.log(covidDates, covidDeaths);
     };
-    
+  
     useEffect(() => {
       chart();
     }, []);
     return (
       <div className="App">
-        <h1 className="text-center">California Positive COVID-19 Cases</h1>
+        <h1 className="text-center">California vs New York Deaths</h1>
         <div>
           <Line
             data={chartData}
             options={{
-            legend: {
-                display: false
-            },
-            tooltips: {
-                callbacks: {
-                    label: function(tooltipItem) {
-                            return tooltipItem.yLabel;
-                    }
-                }
-            },
               responsive: true,
-              title: { text: "Let's hope it starts declining", display: true },
+              title: { text: "Shelter in palce saves lives!", display: true },
               scales: {
                 yAxes: [
                   {
@@ -117,4 +131,4 @@ const LineChart = () => {
     );
   };
   
-  export default LineChart;
+  export default CaVsNy;

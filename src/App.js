@@ -1,12 +1,9 @@
-import React, { useState, useEffect, Component } from 'react';
+import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import NavBar from './components/Navbar'
 import Resources from './components/Resources'
 import Visualization from './components/Visualization'
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom' 
-import Chart from './components/Chart'
-import { getDefaultNormalizer } from '@testing-library/react';
-import LineChart from './components/LineChart'
 
 function App() {
 
@@ -22,6 +19,7 @@ function App() {
 
         </div>
       </Router>
+      
     );
 }
 
