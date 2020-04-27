@@ -30,46 +30,27 @@ const Chart = ({data}) => {
 
     return (
         <div>
-            <Bar data={chartDataConfig} />
+            <Bar 
+            data={chartDataConfig} 
+            // can not resize?? 
+            options={{
+                legend: {
+                    display: false
+                },
+                tooltips: {
+                    callbacks: {
+                        label: function(tooltipItem) {
+                                return tooltipItem.yLabel;
+                        }
+                    }
+                },
+            }}
+            width={5}
+            height={5}
+            options={{ maintainAspectRatio: true}}
+            />
         </div>
     )
 }
 
 export default Chart
-
-
-/*
-const Chart = ({data}) => {
-    
-
-
-    const {positive, negative, pending} = data
-    
-    const dataStructure = {
-        positive,
-        negative,
-        pending
-    }
-    const chartDataConfig = {
-        labels: Object.keys(dataStructure),
-        datasets: [
-            {
-                data: Object.values(dataStructure), 
-                label: "Current Covid-19 Pandemic in US",
-                backgroundColor: "rgba(255,99,132,0.2)",
-                borderColor: "rgba(255,99,132,1)",
-                borderWidth: 1,
-                hoverBackgroundColor: "rgba(255,99,132,0.4)",
-                hoverBorderColor: "rgba(255,99,132,1)",
-            }
-        ]
-    }
-
-
-    return(
-        <div>
-            <Chart data={chartDataConfig}/>
-        </div>
-    )
-} */
-

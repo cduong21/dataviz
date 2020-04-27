@@ -6,24 +6,10 @@ import Visualization from './components/Visualization'
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom' 
 import Chart from './components/Chart'
 import { getDefaultNormalizer } from '@testing-library/react';
+import LineChart from './components/LineChart'
 
 function App() {
-  const [stateData, setStateData] = useState([])
-  const url = "https://covidtracking.com/api/v1/us/current.json"
 
-  useEffect(() => {
-    async function getData() {
-      const res = await fetch(url);
-      const data = await res.json();
-      console.log(data)
-      setStateData(data[0]);
-      console.log(data[0])
-    }
-    getData();
-    console.log(getData())
-  });
-
-  
     return (
       <Router>
         <div className="App">
@@ -40,6 +26,25 @@ function App() {
 }
 
 export default App;
+
+
+
+/*
+
+
+<Router>
+        <div className="App">
+          <NavBar/>
+
+          <Switch>
+          <Route path='/data' component={Visualization} />
+          <Route path='/resources' component={Resources} />
+          </Switch> 
+
+        </div>
+      </Router>
+*/
+
 
 /*
 class App extends Component {
