@@ -1,3 +1,10 @@
+## Data Visualization Assignment for Poly Ops 
+1. Created a React application
+2. Read data from [The COVID Tracking Project] (https://covidtracking.com/api) 
+3. Three visualizations 
+4. Multiple pages of visualizations and resources 
+5. Support navigation between pages
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
