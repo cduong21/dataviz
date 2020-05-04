@@ -5,37 +5,38 @@ import axios from "axios";
 /* Using new method that makes more sense: creating arrays, using React Hooks, and passing in arrays */
 const LineChart = () => {
     const [chartData, setChartData] = useState({});
-    
+
     const chart = () => {
-      // initalizing empty arrays to be filled 
-      let filteredCA = [];  
+      // initalizing empty arrays to be filled
+      let filteredCA = [];
       let covidDates = [];
       let covidDeaths = [];
 
-      // fetching API 
+      // fetching API
       axios
         .get("https://covidtracking.com/api/v1/states/daily.json")
         .then(res => {
-            // filter API of all state's data 
-            const state = res.data 
+            // filter API of all state's data
+            const state = res.data
             filteredCA = state.filter(a => a.state===("CA"))
 
-            //pushing desired data into respective arrays 
-            for (const dataObj of filteredCA){
+            //pushing desired data into respective arrays
+            for (const dataObj of filteredCA) {
                 covidDates.push(parseInt(dataObj.date));
                 covidDeaths.push(dataObj.positive);
             }
 
-            // key and value pair matching to sort them from oldest to newest 
-            var i; 
+            // key and value pair matching to sort them from oldest to newest
+            var i;
             var currentKey;
-            var currentVal; 
+            var currentVal;
             var masterList = {};
             for (i = 0; i < covidDates.length; i++){
                 currentKey = covidDates[i]
                 currentVal = covidDeaths[i]
-                masterList[currentKey] = currentVal; 
+                masterList[currentKey] = currentVal;
             }
+            // TODO: remove log statements
             console.log(masterList)
 
           //console.log(state);
@@ -50,8 +51,8 @@ const LineChart = () => {
                 backgroundColor: ["rgba(75, 192, 192, 0.6)"],
                 borderWidth: 4,
                 fill: false,
-                borderColor: "rgb(51, 102, 255)", 
-                
+                borderColor: "rgb(51, 102, 255)",
+
                 legend: {
                     display: false,
                 }
@@ -59,13 +60,13 @@ const LineChart = () => {
             ]
           });
         })
-        // catching errors 
+        // catching errors
         .catch(err => {
           console.log(err);
         });
       //console.log(covidDates, covidDeaths);
     };
-    
+
     useEffect(() => {
       chart();
     }, []);
@@ -116,5 +117,5 @@ const LineChart = () => {
       </div>
     );
   };
-  
+
   export default LineChart;

@@ -5,9 +5,9 @@ import axios from "axios";
 // Visualization for both CA and NY
 const CaVsNy = () => {
     const [chartData, setChartData] = useState({});
-    
+
     const chart = () => {
-      let filteredCA, filteredNy= [];  
+      let filteredCA, filteredNy= [];
       let covidDates = [];
       let covidCaDeath = [];
       let covidNyDeath = [];
@@ -15,60 +15,54 @@ const CaVsNy = () => {
       axios
         .get("https://covidtracking.com/api/v1/states/daily.json")
         .then(res => {
-            const state = res.data 
+            const state = res.data
             filteredCA = state.filter(a => a.state===("CA"))
-            
-
-            for (const dataObj of filteredCA){
+            for (const dataObj of filteredCA) {
                 covidDates.push(parseInt(dataObj.date));
                 covidCaDeath.push(dataObj.death);
             }
 
-            const ny = res.data
-            filteredNy = ny.filter(b => b.state===("NY"))
+            // TODO: use more verbose naming, e.g. newYorkData
+            filteredNy = res.data.filter(b => b.state===("NY"))
 
             for (const dataObj of filteredNy) {
                 covidNyDeath.push(dataObj.death)
             }
 
-            // CA key and value pair matching to support sorting the dates in ascending order 
-            var i; 
+            // CA key and value pair matching to support sorting the dates in ascending order
+            var i;
             var currentKey;
-            var currentVal; 
+            var currentVal;
             var masterList = {};
             for (i = 0; i < covidDates.length; i++){
                 currentKey = covidDates[i]
                 currentVal = covidCaDeath[i]
-                masterList[currentKey] = currentVal; 
+                masterList[currentKey] = currentVal;
             }
             console.log(masterList)
 
-            //for NY 
-            var j; 
-            var currentKey2;
-            var currentVal2; 
-            var masterList2 = {};
+            //for NY
+            let j;
+            let currentKey2;
+            let currentVal2;
+            let masterList2 = {};
             for (j = 0; j < covidDates.length; j++){
                 currentKey2 = covidDates[j]
                 currentVal2 = covidNyDeath[j]
-                masterList2[currentKey2] = currentVal2; 
+                masterList2[currentKey2] = currentVal2;
             }
-            console.log(masterList2)
-
-          //console.log(filteredNy)
-
           setChartData({
             labels: Object.keys(masterList),
             datasets: [
               {
                 label: "Cali",
                 data: Object.values(masterList),
-                pointBackgroundColor: ["rgb(0, 153, 255)"], 
+                pointBackgroundColor: ["rgb(0, 153, 255)"],
                 pointBorderColor: ["rgb(0, 153, 255)"],
                 pointHoverBackgroundColor: ["rgb(0, 153, 255)"],
                 backgroundColor: ["rgb(0, 153, 255)"],
                 borderWidth: 4,
-                fill: true, 
+                fill: true,
                 legend: {
                     display: false,
                 }
@@ -89,7 +83,7 @@ const CaVsNy = () => {
           console.log(err);
         });
     };
-  
+
     useEffect(() => {
       chart();
     }, []);
@@ -101,7 +95,7 @@ const CaVsNy = () => {
             data={chartData}
             options={{
               responsive: true,
-              title: { text: "Shelter in palce saves lives!", display: true },
+              title: { text: "Shelter in place saves lives!", display: true },
               scales: {
                 yAxes: [
                   {
@@ -130,5 +124,5 @@ const CaVsNy = () => {
       </div>
     );
   };
-  
+
   export default CaVsNy;

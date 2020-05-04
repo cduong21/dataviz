@@ -1,24 +1,24 @@
-import React from 'react'; 
-import {NavLink} from 'react-router-dom'; 
+import React from 'react';
+import { NavLink } from 'react-router-dom';
 
-function Navbar(){
+function Navbar() {
     return(
         <nav className="navbar navbar-expand-lg navbar-light bg-dark">
-      
           <ul className="navbar-nav m-auto">
             <li className="nav-item">
                 <NavLink className="nav-link text-white text-uppercase ml-5" exact to="/data" activeClassName="active">
-                    Visualization&nbsp; 
+                    Visualization
                 </NavLink>
             </li>
             <li className="nav-item">
                 <NavLink className="nav-link text-white text-uppercase ml-5" exact to="/resources" activeClassName="active">
-                    Resources 
+                    Resources
                 </NavLink>
             </li>
           </ul>
 
-      </nav>  
+      </nav>
     );
 }
+
 export default Navbar
